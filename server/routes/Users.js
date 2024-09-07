@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Users } = require('../models');
 const bcrypt = require('bcrypt');
+const { validateToken } = require('../middlewares/AuthMiddelware');
 
 
 const {sign} = require('jsonwebtoken');
@@ -29,13 +30,15 @@ router.post("/login", async (req, res) => {
 
     const user = await Users.findOne({ where: {username: username}});
     if(!user) res.json({error: "User doesn't exist"});
-    bcrypt.compare(password, user.password).then((match) => {
+    bcrypt.compare(password, user.password).then(async (match) => {
         if(!match) res.json({error: "Wrong Username & Password Combination"});
-
         const accessToken = sign({username: user.username, id: user.id}, "important_secret")
         res.json(accessToken);
     });
-    
+});
+
+router.get("/user", validateToken, (req, res) => {
+    res.json(req.user);
 });
 
 

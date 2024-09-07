@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../helper/AuthContext'
 
 function Login() {
@@ -10,17 +10,17 @@ function Login() {
 
   const {setAuthState} = useContext(AuthContext);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const login = () => {
     const data = {username: username, password: password};
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if(response.data.error) {
-        alert(response.data.erro);
+        alert(response.data.error);
       }else {
         localStorage.setItem('accessToken', response.data);
         setAuthState(true);
-        history.push("/");
+        navigate("/");
       }
     });
   }

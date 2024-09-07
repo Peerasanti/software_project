@@ -2,12 +2,12 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage, validateYupSchema } from 'formik';
 import * as Yup from 'yup'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
 
-  let history = useHistory();
+  // let navigate = useNavigate();
 
   const initialValues = {
     username: "",
