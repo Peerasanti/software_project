@@ -18,7 +18,7 @@ function Register() {
     username: Yup.string().min(4).max(16).required(),
     password: Yup.string().min(4).max(20).required(),
     email: Yup.string().required(),
-    tel: Yup.string().required(),
+    tel: Yup.string().min(10).max(10).required(),
     address: Yup.string().required(),
   });
 
