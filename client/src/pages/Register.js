@@ -11,6 +11,7 @@ function Register() {
     password: "",
     email: "",
     tel: "",
+    address: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -18,11 +19,13 @@ function Register() {
     password: Yup.string().min(4).max(20).required(),
     email: Yup.string().required(),
     tel: Yup.string().required(),
+    address: Yup.string().required(),
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-    // axios.post
+    axios.post("http://localhost:3001/auth", data).then(() => {
+      console.log(data);
+    });
   };
 
   return (
@@ -59,6 +62,13 @@ function Register() {
               id='inputCreateser' 
               name='tel' 
               placeholder='(Enter telephone number..)' 
+            />
+            <label>Address: </label>
+            <Field 
+              autocomplete='off'
+              id='inputCreateser' 
+              name='address' 
+              placeholder='(Enter address..)' 
             />
 
             <button type='submit'> Create User </button>
