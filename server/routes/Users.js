@@ -26,11 +26,9 @@ router.post('/', async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
-
-    const user = await Users.findOne({ where: {username: username}});
+    const user = await Users.findOne({ where: {username: req.body.username} });
     if(!user) res.json({error: "User doesn't exist"});
-    bcrypt.compare(password, user.password).then(async (match) => {
+    bcrypt.compare(req.body.password, user.password).then(async (match) => {
         if(!match) res.json({error: "Wrong Username & Password Combination"});
         const accessToken = sign({username: user.username, id: user.id}, "important_secret")
         res.json(accessToken);
