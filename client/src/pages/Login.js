@@ -1,15 +1,27 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../helper/AuthContext'
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const {setAuthState} = useContext(AuthContext);
+
+  let history = useHistory();
+
   const login = () => {
     const data = {username: username, password: password};
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
-      console.log(response.data);
+      if(response.data.error) {
+        alert(response.data.erro);
+      }else {
+        localStorage.setItem('accessToken', response.data);
+        setAuthState(true);
+        history.push("/");
+      }
     });
   }
 

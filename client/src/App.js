@@ -3,25 +3,33 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import { AuthContext } from './helper/AuthContext';
+import { useState } from 'react';
 
 function App() {
+
+  const [authState, setAuthState] = useState(false);
+
   return (
     <div className="App">
-      <Router>
-        <div className="navbar">   
-        <Link to='/login'> Login </Link>
-        <br></br>
-        <Link to='/createuser'> Create User </Link>
-        <br></br>
-        <Link to='/'> Home page </Link>
-        <br></br>
-        </div>    
-        <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/createuser' element={<Register/>} />
-          <Route path='/login' element={<Login/>} />
-        </Routes>
-      </Router>
+      <AuthContext.Provider value={{ authState, setAuthState }}>
+        <Router>
+          <div className="navbar"> 
+          {!authState && (
+          <>
+            <Link to='/login'> Login </Link>
+            <Link to='/createuser'> Create User </Link>
+          </>
+          )};
+          <Link to='/'> Home page </Link>
+          </div>    
+          <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path='/createuser' element={<Register/>} />
+            <Route path='/login' element={<Login/>} />
+          </Routes>
+        </Router>
+      </AuthContext.Provider>
     </div>
   );
 }
