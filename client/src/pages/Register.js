@@ -1,6 +1,7 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, validateYupSchema } from 'formik';
 import * as Yup from 'yup'
+import axios from 'axios'
 
 
 function Register() {
@@ -8,30 +9,27 @@ function Register() {
   const initialValues = {
     username: "",
     password: "",
-    fname: "",
-    lname: "",
     email: "",
     tel: "",
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required(),
-    password: Yup.string().required(),
-    fname: Yup.string().required(),
-    lname: Yup.string().required(),
+    username: Yup.string().min(4).max(16).required(),
+    password: Yup.string().min(4).max(20).required(),
     email: Yup.string().required(),
     tel: Yup.string().required(),
   });
 
   const onSubmit = (data) => {
     console.log(data);
+    // axios.post
   };
 
   return (
     <div>
       <h1> This is Register page </h1>
       <div>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
           <Form>
             <label>User name: </label>
             <Field 
@@ -43,23 +41,10 @@ function Register() {
             <label>Password: </label>
             <Field 
               autocomplete='off'
+              type='password'
               id='inputCreateser' 
               name='password' 
               placeholder='(Enter password)' 
-            />
-            <label>First name: </label>
-            <Field 
-              autocomplete='off'
-              id='inputCreateser' 
-              name='fname' 
-              placeholder='(Enter first name)' 
-            />
-            <label>Last name: </label>
-            <Field 
-              autocomplete='off'
-              id='inputCreateser' 
-              name='lname' 
-              placeholder='(Enter Last name)' 
             />
             <label>Email: </label>
             <Field 

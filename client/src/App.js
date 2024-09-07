@@ -8,11 +8,14 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <div className="navbar">   
         <Link to='/login'> Login </Link>
         <br></br>
         <Link to='/createuser'> Create User </Link>
         <br></br>
         <Link to='/'> Home page </Link>
+        <br></br>
+        </div>    
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/createuser' element={<Register/>} />
