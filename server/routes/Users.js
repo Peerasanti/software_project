@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
 router.post("/login", async (req, res) => {
     const validateUser = req.body;
     const user = await Users.findOne({ where: {username: validateUser.username} });
-    console.log(user)
     if(!user) {
         return res.json({error: "User doesn't exist"});
     }
@@ -36,9 +35,9 @@ router.post("/login", async (req, res) => {
         if(!match) {
             return res.json({error: "Wrong Username & Password Combination"});
         }
-        const accessToken = sign({username: user.username, id: user.id}, "important_secret")
+        const accessToken = sign({username: user.username, id: user.id}, "important_secret");
         console.log("Logged in!!!");
-        res.json(accessToken);
+        res.json({token: accessToken, username: user.username, id: user.id});
     });
 });
 

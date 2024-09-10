@@ -3,44 +3,57 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import SuccessPage from './pages/SuccessPage';
+import Profile from './pages/Profile';
+
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import SuccessPage from './pages/SuccessPage';
+
+
 
 function App() {
 
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({username: "", id: 0, status: false});
 
   useEffect(() => {
-    axios.get('http://localhost:3001/auth/user', {header: { accessToken: localStorage.getItem('accessToken') }, })
-    .then((response) => {
+    axios.get('http://localhost:3001/auth/user', {headers: { accessToken: localStorage.getItem("accessToken") }}).then((response) => {
       if(response.data.error) {
-        setAuthState(false);
-      }else{
-        setAuthState(true);
+        setAuthState({...authState, status: false});
+      } else {
+        setAuthState({username: response.data.uername, id: response.data.id, status: true});
       }
     });
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({username: "", id: 0 , status: false});
+  };
 
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
           <div className="navbar"> 
-          {!authState && (
+          {!authState.status ? (
           <>
             <Link to='/login'> Login </Link>
             <Link to='/createuser'> Create User </Link>
           </>
-          )};
+          ) : (
+            <button onClick={logout}> Logout </button>
+          )}
           <Link to='/'> Home page </Link>
+          <Link to='/profile'> {authState.username} </Link>
+
           </div>    
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/createuser' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/success' element={<SuccessPage/>} />
+            <Route path='/profile' element={<Profile/>} />
           </Routes>
         </Router>
       </AuthContext.Provider>
