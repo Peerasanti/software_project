@@ -6,16 +6,14 @@ import Login from './pages/Login';
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import SuccessPage from './pages/SuccessPage';
 
 function App() {
 
   const [authState, setAuthState] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/auth/user', {header: {
-      accessToken: localStorage.getItem('accessToken'),
-      },
-    })
+    axios.get('http://localhost:3001/auth/user', {header: { accessToken: localStorage.getItem('accessToken') }, })
     .then((response) => {
       if(response.data.error) {
         setAuthState(false);
@@ -42,6 +40,7 @@ function App() {
             <Route path='/' element={<Home/>} />
             <Route path='/createuser' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/success' element={<SuccessPage/>} />
           </Routes>
         </Router>
       </AuthContext.Provider>

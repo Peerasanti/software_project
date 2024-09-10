@@ -1,13 +1,13 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage, validateYupSchema } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
 import axios from 'axios'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   const initialValues = {
     username: "",
@@ -29,6 +29,7 @@ function Register() {
     axios.post("http://localhost:3001/auth", data).then(() => {
       console.log(data);
     });
+    navigate("/success");
   };
 
   return (
