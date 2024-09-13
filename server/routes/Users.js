@@ -12,6 +12,12 @@ router.get('/', async (req, res) => {
     res.json(listOfUser);
 });
 
+router.get('/byId/:id', async(req, res) => {
+    const userId = req.params.id;
+    const user = await Attr.findByPk(userId);
+    res.json(user);
+})
+
 router.post('/', async (req, res) => {
     const user = req.body;
     bcrypt.hash(user.password, 10).then((hash) => {
