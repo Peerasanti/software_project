@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import SuccessPage from './pages/SuccessPage';
 import Profile from './pages/Profile';
+import Art from './pages/Art';
+import PostArt from './pages/PostArt';
 
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
@@ -45,6 +47,7 @@ function App() {
             <button onClick={logout}> Logout </button>
           )}
           <Link to='/'> Home page </Link>
+          <Link to='/postArt'> Post Art </Link>
           <Link to='/profile'> {authState.username} </Link>
 
           </div>    
@@ -54,6 +57,8 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/success' element={<SuccessPage/>} />
             <Route path='/profile' element={<Profile/>} />
+            <Route path='/art/:id' element={<Art/>} />
+            <Route path='/postArt' element={<PostArt/>} />
           </Routes>
         </Router>
       </AuthContext.Provider>
