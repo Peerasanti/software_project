@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-    })
+    });
+
+    Art.associate = (models) => {
+        Art.hasMany(models.Comment, {
+            onDelete: "cascade",
+        });
+    };
 
     return Art;
 };
