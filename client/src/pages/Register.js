@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup'
-import axios from 'axios'
+import * as Yup from 'yup';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -38,39 +38,39 @@ function Register() {
       <div>
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
           <Form>
-            <label>User name: </label>
+            <label> User name: </label>
             <Field 
               autocomplete='off'
-              id='inputCreateser' 
+              id='inputCreateUser' 
               name='username' 
               placeholder='(Enter username)' 
             />
-            <label>Password: </label>
+            <label> Password: </label>
             <Field 
               autocomplete='off'
               type='password'
-              id='inputCreateser' 
+              id='inputCreateUser' 
               name='password' 
               placeholder='(Enter password)' 
             />
-            <label>Email: </label>
+            <label> Email: </label>
             <Field 
               autocomplete='off'
-              id='inputCreateser' 
+              id='inputCreatUeser' 
               name='email' 
               placeholder='(Enter email)' 
             />
-            <label>Telephone number: </label>
+            <label> Telephone number: </label>
             <Field 
               autocomplete='off'
-              id='inputCreateser' 
+              id='inputCreateUser' 
               name='tel' 
               placeholder='(Enter telephone number..)' 
             />
-            <label>Address: </label>
+            <label> Address: </label>
             <Field 
               autocomplete='off'
-              id='inputCreateser' 
+              id='inputCreateUser' 
               name='address' 
               placeholder='(Enter address..)' 
             />

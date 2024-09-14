@@ -9,9 +9,9 @@ const db = require('./models');
 
 const userRouter = require('./routes/Users');
 app.use('/auth', userRouter);
-const artRouter = require('./routes/Art');
+const artRouter = require('./routes/Arts');
 app.use('/art', artRouter);
-const commentRouter = require('./router/Comment');
+const commentRouter = require('./routes/Comments');
 app.use('/comment', commentRouter);
 
 db.sequelize.sync().then(() => {

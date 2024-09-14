@@ -16,6 +16,7 @@ function Home() {
 
   return (
     <div>
+      <div>This is Home page</div>
       {listOfArt.map((value, key) => {
         return (
           <div className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
