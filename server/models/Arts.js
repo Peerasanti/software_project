@@ -29,5 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
+    Arts.associate = (models) => {
+        Arts.belongsTo(models.Categorys, {
+            onDelete: "cascade",
+        });
+    };
+
     return Arts;
 };
