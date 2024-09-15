@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react';
+import PreviewImage from '../helper/PreviewImage';
 
 function PostArt() {
 
@@ -90,6 +91,7 @@ function PostArt() {
 
       <button type='submit'> Post </button>
      </form>
+     {formik.values.img && <PreviewImage file={formik.values.img}/>}
     </div>
   );
 };

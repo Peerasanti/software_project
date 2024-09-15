@@ -53,7 +53,6 @@ function Art() {
     <div className='artPost'>
       {id}
       <div className='postSection'>
-        <img className='img' src={artObject.img} alt={artObject.title}/>
         <div className="title">{artObject.title}</div>
         <div classname="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>
