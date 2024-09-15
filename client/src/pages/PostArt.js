@@ -21,10 +21,22 @@ function PostArt() {
       size: Yup.string().required(),
       desciption: Yup.string().required(),
     }),
-    onSubmit: () => {
-      console.log('Post Success');
-      axios.post("http://localhost:3001/art", formik.values).then(() => {
+    onSubmit: async () => {
+      console.log(formik.values);
+      axios.post("http://localhost:3001/art", formik.values, 
+      {
+        headers: {
+          accessToken: localStorage.getItem('accessToken')
+        },
+      }
+    ).then((response) => {
+      if(response.data.error) {
+        alert('You Should Log In First');
+        console.log(response.data.error);
+      } else {
         console.log(formik.values);
+      }
+
       });
     },
   })
@@ -34,35 +46,38 @@ function PostArt() {
      <form onSubmit={formik.handleSubmit}>
       <label> Image: </label>
       <input
-        id='inputCreateArt'
         type='file'
         accept='image/*'
         name='img'
-        onChange={(event) => formik.setFieldValues('img', event.target.files[0])}
+        onChange={(event) => formik.setFieldValue('img', event.target.files[0])}
       />
       <label> Title: </label>
       <input
-        id='inputCreateArt' 
+        type='text'
         name='title' 
         placeholder='(insert title...)'
+        onChange={(event) => formik.setFieldValue('title', event.target.value)}
       />
       <label> Price: </label>
       <input
-        id='inputCreateArt' 
+        type='number'
         name='price' 
         placeholder='(insert price...)'
+        onChange={(event) => formik.setFieldValue('price', event.target.value)}
       />
       <label> Size: </label>
       <input
-        id='inputCreateArt' 
+        type='text'
         name='size' 
         placeholder='(size...)'
+        onChange={(event) => formik.setFieldValue('size', event.target.value)}
       />
       <label> Desciption: </label>
       <input
-        id='inputCreateArt' 
+        type='text'
         name='desciption' 
         placeholder='(desciption...)'
+        onChange={(event) => formik.setFieldValue('desciption', event.target.value)}
       />
 
       <button type='submit'> Post </button>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Arts } = require('../models');
+const { validateToken } = require('../middlewares/AuthMiddelware');
 
 router.get("/", async (req, res) => {
     const listOfArts = await Arts.findAll();
@@ -19,7 +20,7 @@ router.get("/:UserId", async (req, res) => {
     res.json(art);
 })
 
-router.post("/", async (req, res) => {
+router.post("/", validateToken, async (req, res) => {
     const art = req.body;
     await Arts.create(art);
     res.json(art);

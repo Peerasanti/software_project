@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Comments } = require('../models');
+const { validateToken } = require('../middlewares/AuthMiddelware');
 
 router.get('/', async (req, res) => {
     const listOfComments = Comments.findAll();
@@ -13,13 +14,7 @@ router.get('/:artId', async (req, res) => {
     res.json(comments);
 });
 
-router.get('/:userId', async (req, res) => {
-    const userId = req.params.userId;
-    const comments = await Comments.findAll({ where: {UserId: userId}});
-    res.json(comments);
-})
-
-router.post('/', async (req, res) => {
+router.post('/', validateToken, async (req, res) => {
     const comment = req.body;
     await Comments.create(comment);
     res.json(comment);
