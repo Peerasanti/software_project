@@ -18,7 +18,7 @@ router.get("/:UserId", async (req, res) => {
     const userId = req.params.UserId;
     const art = await Arts.findAll({ where: {UserId: userId}});
     res.json(art);
-})
+});
 
 router.post("/", validateToken, async (req, res) => {
     const art = req.body;

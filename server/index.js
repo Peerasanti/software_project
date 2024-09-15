@@ -13,6 +13,8 @@ const artRouter = require('./routes/Arts');
 app.use('/art', artRouter);
 const commentRouter = require('./routes/Comments');
 app.use('/comment', commentRouter);
+const categoryRouter = require('./routes/Categorys');
+app.use('/category', categoryRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {

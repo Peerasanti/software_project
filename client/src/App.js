@@ -12,8 +12,6 @@ import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-
 function App() {
 
   const [authState, setAuthState] = useState({username: "", id: 0, status: false});

@@ -6,7 +6,7 @@ const { validateToken } = require('../middlewares/AuthMiddelware');
 router.get('/', async (req, res) => {
     const listOfComments = Comments.findAll();
     res.json(listOfComments);
-})
+});
 
 router.get('/:artId', async (req, res) => {
     const artId = req.params.artId;
@@ -18,6 +18,6 @@ router.post('/', validateToken, async (req, res) => {
     const comment = req.body;
     await Comments.create(comment);
     res.json(comment);
-})
+});
 
-module.exports = router
+module.exports = router;
