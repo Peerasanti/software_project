@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         Arts.belongsTo(models.Categorys, {
             onDelete: "cascade",
         });
+
+        Arts.hasOne(models.Order, {
+            onDelete: "cascade",
+        });
+
     };
-    
     return Arts;
 };
