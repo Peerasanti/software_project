@@ -29,7 +29,7 @@ function Art() {
   }, []);
 
   const addComment = () => {
-    axios.post('http://localhost:3001/comment', {commentBody: newComment, PostId: id},
+    axios.post('http://localhost:3001/comment', {commentBody: newComment, ArtId: id},
       {
         headers: {
           accessToken: localStorage.getItem('accessToken')
