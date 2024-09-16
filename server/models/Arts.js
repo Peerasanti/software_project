@@ -27,13 +27,20 @@ module.exports = (sequelize, DataTypes) => {
         Arts.hasMany(models.Comments, {
             onDelete: "cascade",
         });
-    };
 
-    Arts.associate = (models) => {
         Arts.belongsTo(models.Categorys, {
             onDelete: "cascade",
         });
+
+        Arts.hasOne(models.Order, {
+            onDelete: "cascade",
+        });
+
+
+
+
     };
+
 
     return Arts;
 };
