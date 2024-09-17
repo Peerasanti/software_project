@@ -7,10 +7,13 @@ import SuccessPage from './pages/SuccessPage';
 import Profile from './pages/Profile';
 import Art from './pages/Art';
 import PostArt from './pages/PostArt';
+import Cart from './pages/Cart';
+import Payment from './pages/Payment';
 
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 
 function App() {
 
@@ -28,7 +31,7 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem("accessToken");
-    setAuthState({username: "", id: 0 , status: false});
+    setAuthState({username: "", id: 0, status: false});
   };
 
   return (
@@ -45,6 +48,8 @@ function App() {
           <>
             <button onClick={logout}> Logout </button>
             <Link to='/profile'> {authState.username} </Link>
+            <Link to='/cart'> Cart </Link> 
+            <Link to='/payment'> Payment </Link>
           </>
           )}
           <Link to='/'> Home page </Link>
@@ -59,6 +64,8 @@ function App() {
             <Route path='/profile' element={<Profile/>} />
             <Route path='/art/:id' element={<Art/>} />
             <Route path='/postArt' element={<PostArt/>} />
+            <Route path='/cart' element={<Cart/>} /> 
+            <Route path='/payment' element={<Payment/>} />
           </Routes>
         </Router>
       </AuthContext.Provider>

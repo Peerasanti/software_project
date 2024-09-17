@@ -15,6 +15,8 @@ const commentRouter = require('./routes/Comments');
 app.use('/comment', commentRouter);
 const categoryRouter = require('./routes/Categorys');
 app.use('/category', categoryRouter);
+const orderRouter = require('./routes/Order');
+app.use('/order', orderRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {

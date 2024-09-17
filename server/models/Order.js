@@ -1,8 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
 
     const Order = sequelize.define("Order", {
-        orderDate: {
+        artName: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        artist: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        orderDate: {
+            type: DataTypes.DATE,
             allowNull: false,
         },
         price: {

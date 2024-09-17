@@ -3,8 +3,11 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import PreviewImage from '../helper/PreviewImage';
+import { useNavigate } from 'react-router-dom';
 
 function PostArt() {
+
+  let navigate = useNavigate();
   
   const formik = useFormik({
     initialValues: {
@@ -35,6 +38,7 @@ function PostArt() {
         console.log(response.data.error);
       } else {
         console.log(formik.values);
+        navigate("/success");
       }
 
       });

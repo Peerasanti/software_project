@@ -9,6 +9,7 @@ function Art() {
   const [ artObject, setArtObject] = useState({});
   const [ listOfComment, setListOfComment] = useState([]);
   const [ newComment, setNewComment] = useState("");
+  const date = new Date();
 
   useEffect(() => {
     axios.get(`http://localhost:3001/art/byId/${id}`).then((response) => {
@@ -47,7 +48,31 @@ function Art() {
       }
       
     });
-  }
+  };
+
+  const addOrder = () => {
+    axios.post('http://localhost:3001/order',
+      {
+        orderDate: date, 
+        ArtId: id, 
+        artist: artObject.artist, 
+        price: artObject.price, 
+        artName: artObject.title,
+      },
+      {
+        headers: {
+          accessToken: localStorage.getItem('accessToken')
+        },
+      }
+    ).then((response) => {
+      if(response.data.error) {
+        alert('You Should Log In First');
+        console.log(response.data.error);
+      } else {
+        console.log('Add to cart success!!!');
+      }
+    });
+  };
 
   return (
     <div className='artPost'>
@@ -57,6 +82,9 @@ function Art() {
         <div classname="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>
         <div className="desciption">{artObject.desciption}</div>
+      </div>
+      <div className='orderSection'>
+        <button onClick={addOrder}> Add to Cart </button>
       </div>
       <div classname='commentSection'>
         <div claaname='addCommentContainer'>
