@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/byId/:id', async(req, res) => {
     const userId = req.params.id;
-    const user = await Attr.findByPk(userId);
+    const user = await Users.findByPk(userId);
     res.json(user);
 });
 

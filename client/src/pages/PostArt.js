@@ -2,18 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useState, useEffect } from 'react';
 import PreviewImage from '../helper/PreviewImage';
 
 function PostArt() {
-
-  // const [ listOfCategory, setListOfCategory ] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3001/category').then((response) => {
-  //      setListOfCategory(response.data);
-  //     });
-  // }, []);
   
   const formik = useFormik({
     initialValues: {

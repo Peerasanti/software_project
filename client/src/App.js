@@ -42,11 +42,13 @@ function App() {
             <Link to='/createuser'> Create User </Link>
           </>
           ) : (
+          <>
             <button onClick={logout}> Logout </button>
+            <Link to='/profile'> {authState.username} </Link>
+          </>
           )}
           <Link to='/'> Home page </Link>
           <Link to='/postArt'> Post Art </Link>
-          <Link to='/profile/:id'> {authState.username} </Link>
 
           </div>    
           <Routes>
@@ -54,7 +56,7 @@ function App() {
             <Route path='/createuser' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/success' element={<SuccessPage/>} />
-            <Route path='/profile/:id' element={<Profile/>} />
+            <Route path='/profile' element={<Profile/>} />
             <Route path='/art/:id' element={<Art/>} />
             <Route path='/postArt' element={<PostArt/>} />
           </Routes>

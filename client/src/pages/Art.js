@@ -41,7 +41,7 @@ function Art() {
         console.log(response.data.error);
       } else {
         console.log('Comment added!!!');
-        const commentToAdd = {commentBody: newComment};
+        const commentToAdd = {commentBody: newComment, userName: response.data.userName};
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
@@ -65,7 +65,12 @@ function Art() {
         </div>
         <div className='listOfComment'></div>
         {listOfComment.map((comment, key) => {
-          return (<div key={key} className='comment'> {comment.commetBody} </div>)
+          return (
+            <div key={key} className='comment'> 
+              "{comment.commentBody}"
+              <label> Username: {comment.userName} </label>
+            </div>
+          )
         })}
       </div>
     </div>

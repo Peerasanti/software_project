@@ -16,9 +16,10 @@ router.get('/:artId', async (req, res) => {
 
 router.post('/', validateToken, async (req, res) => {
     const comment = req.body;
-    //--------------------------knight--------------------------
-    //comment.ArtId = req.arts.id;
-    //--------------------------knight--------------------------
+    const userName = req.user.username;
+    const userId = req.user.id;
+    comment.userName = userName;
+    comment.UserId = userId;
     await Comments.create(comment);
     res.json(comment);
 });

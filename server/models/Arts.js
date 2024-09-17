@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        artist: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },  
         price: {
             type: DataTypes.INTEGER,
             allowNull: false,

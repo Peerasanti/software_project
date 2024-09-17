@@ -22,6 +22,10 @@ router.get("/:UserId", async (req, res) => {
 
 router.post("/", validateToken, async (req, res) => {
     const art = req.body;
+    const artist = req.user.username;
+    const userId = req.user.id;
+    art.artist = artist;
+    art.UserId = userId;
     await Arts.create(art);
     res.json(art);
 });

@@ -22,6 +22,7 @@ function Home() {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
             <div className="title"> {value.title} </div>
+            <div className="artist"> {value.artist} </div>
             <div className="price"> {value.price} </div>
             <div className="size"> {value.size} </div>
           </div>

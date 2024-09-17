@@ -1,4 +1,3 @@
-//-------------------------------- knight
 module.exports = (sequelize, DataTypes) => {
 
     const Order = sequelize.define("Order", {
@@ -15,5 +14,3 @@ module.exports = (sequelize, DataTypes) => {
 
     return Order;
 };
-
-//-------------------------------- knight

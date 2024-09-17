@@ -27,11 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         Users.hasMany(models.Arts, {
             onDelete: "cascade",
         });
-//-------------------------------- knight
         Users.hasOne(models.Bill, {
             onDelete: "cascade",
         });
-//-------------------------------- knight
+        Users.hasMany(models.Comments, {
+            onDelete: "cascade",
+        })
     };
 
     return Users;
