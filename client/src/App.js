@@ -24,7 +24,7 @@ function App() {
       if(response.data.error) {
         setAuthState({...authState, status: false});
       } else {
-        setAuthState({username: response.data.uername, id: response.data.id, status: true});
+        setAuthState({username: response.data.username, id: response.data.id, status: true});
       }
     });
   }, []);

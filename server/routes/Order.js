@@ -30,7 +30,7 @@ router.post('/', validateToken, async (req, res) => {
 
 router.delete('/:orderId', validateToken, async (req, res) => {
     const orderId = req.params.orderId;
-    await Order.destroy({ where: {id: orderId}});
+    await Order.destroy({ where: {id: orderId, BillId: null}});
     res.json('Delete Success');
 });
 

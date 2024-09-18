@@ -44,11 +44,16 @@ function Art() {
         console.log(response.data.error);
       } else {
         console.log('Comment added!!!');
-        const commentToAdd = {commentBody: newComment, userName: response.data.userName};
+        console.log(response.data.id);
+        const commentToAdd = {
+          commentBody: newComment, 
+          userName: response.data.userName, 
+          ArtId: response.data.ArtId,
+          UserId: response.data.UserId,
+        };
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
-      
     });
   };
 
@@ -77,7 +82,7 @@ function Art() {
   };
 
   const onDelete = (id) => {
-    axios.delete(`http://localhost:3001/comment/${id}`,
+    axios.delete(`http://localhost:3001/comment/delete/${id}`,
       {
         headers: {
           accessToken: localStorage.getItem('accessToken')
@@ -95,15 +100,15 @@ function Art() {
       {id}
       <div className='postSection'>
         <div className="title">{artObject.title}</div>
-        <div classname="price">{artObject.price}</div>
+        <div className="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>
         <div className="desciption">{artObject.desciption}</div>
       </div>
       <div className='orderSection'>
         <button onClick={addOrder}> Add to Cart </button>
       </div>
-      <div classname='commentSection'>
-        <div claaname='addCommentContainer'>
+      <div className='commentSection'>
+        <div className='addCommentContainer'>
           <input type='text' placeholder='Comment...' autoComplete='off' value={newComment} onChange={(event) => {setNewComment(event.target.value)}}/>
           <button onClick={addComment}> Add Comment </button>
         </div>
@@ -112,7 +117,7 @@ function Art() {
           return (
             <div key={key} className='comment'> 
               "{comment.commentBody}"
-              <label> Username: {comment.userName} {comment.id}</label>
+              <label> Username: {comment.userName} {comment.id} {comment.ArtId}</label>
               {authState.username === comment.userName && <button onClick={() => {onDelete(comment.id)}}> Delete </button>}
             </div>
           )

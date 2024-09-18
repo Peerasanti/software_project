@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
     });
 });
 
-router.get("/user", validateToken, (req, res) => {
+router.get("/user", validateToken, async (req, res) => {
     res.json(req.user);
 });
 

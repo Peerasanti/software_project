@@ -38,7 +38,7 @@ function Profile() {
       </div>
       {listOfArts.map((value, key) => {
         return (
-          <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
+          <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}}>
             <div className="title"> {value.title} </div>
             <div className="size"> {value.size} </div>
             <div className="desciption"> {value.desciption} </div>
