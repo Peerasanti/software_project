@@ -47,7 +47,7 @@ function App() {
           ) : (
           <>
             <button onClick={logout}> Logout </button>
-            <Link to='/profile'> {authState.username} </Link>
+            <Link to={`/profile/${authState.id}`}> {authState.username} </Link>
             <Link to='/cart'> Cart </Link> 
             <Link to='/payment'> Payment </Link>
           </>
@@ -61,7 +61,7 @@ function App() {
             <Route path='/createuser' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/success' element={<SuccessPage/>} />
-            <Route path='/profile' element={<Profile/>} />
+            <Route path='/profile/:id' element={<Profile/>} />
             <Route path='/art/:id' element={<Art/>} />
             <Route path='/postArt' element={<PostArt/>} />
             <Route path='/cart' element={<Cart/>} /> 
