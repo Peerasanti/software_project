@@ -4,7 +4,7 @@ const { Comments } = require('../models');
 const { validateToken } = require('../middlewares/AuthMiddelware');
 
 router.get('/', async (req, res) => {
-    const listOfComments = Comments.findAll();
+    const listOfComments = await Comments.findAll();
     res.json(listOfComments);
 });
 
@@ -23,5 +23,11 @@ router.post('/', validateToken, async (req, res) => {
     await Comments.create(comment);
     res.json(comment);
 });
+
+router.delete('/:commentId', validateToken, async (req, res) => {
+    const commentId = req.params.commentId;
+    await Comments.destroy({ where: {id: commentId}});
+    res.json("Delete Success");
+})
 
 module.exports = router;

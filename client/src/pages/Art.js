@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../helper/AuthContext';
 
 function Art() {
   let { id } = useParams();
@@ -9,6 +10,7 @@ function Art() {
   const [ artObject, setArtObject] = useState({});
   const [ listOfComment, setListOfComment] = useState([]);
   const [ newComment, setNewComment] = useState("");
+  const { authState } = useContext(AuthContext);
   const date = new Date();
 
   useEffect(() => {
@@ -74,6 +76,20 @@ function Art() {
     });
   };
 
+  const onDelete = (id) => {
+    axios.delete(`http://localhost:3001/comment/${id}`,
+      {
+        headers: {
+          accessToken: localStorage.getItem('accessToken')
+        },
+      }
+    ).then(() => {
+      setListOfComment(listOfComment.filter((val) => {
+        return val.id !== id;
+      }));
+    });
+  }
+
   return (
     <div className='artPost'>
       {id}
@@ -96,7 +112,8 @@ function Art() {
           return (
             <div key={key} className='comment'> 
               "{comment.commentBody}"
-              <label> Username: {comment.userName} </label>
+              <label> Username: {comment.userName} {comment.id}</label>
+              {authState.username === comment.userName && <button onClick={() => {onDelete(comment.id)}}> Delete </button>}
             </div>
           )
         })}
