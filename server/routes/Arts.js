@@ -14,10 +14,10 @@ router.get("/byId/:id", async (req, res) => {
     res.json(art);
 });
 
-router.get("/:UserId", async (req, res) => {
+router.get("/byUserId/:UserId", async (req, res) => {
     const userId = req.params.UserId;
-    const art = await Arts.findAll({ where: {UserId: userId}});
-    res.json(art);
+    const listOfArt = await Arts.findAll({ where: {UserId: userId}});
+    res.json(listOfArt);
 });
 
 router.post("/", validateToken, async (req, res) => {
