@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from "../helper/AuthContext";
 
 function Profile() {
   let { id } = useParams();
   let navigate = useNavigate();
   const [ userInfo, setUserInfo ] = useState({});
   const [ listOfArts, setListOfArts ] = useState([]);
+  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
@@ -27,6 +29,21 @@ function Profile() {
      });
   }, []);
 
+  const onDelete = (id) => {
+    axios.delete(`http://localhost:3001/art/delete/${id}`,
+      {
+        headers: {
+          accessToken: localStorage.getItem('accessToken'),
+        },
+      }
+    ).then(() => {
+      setListOfArts(listOfArts.filter((val) => {
+        return val.id !== id;
+      }));
+      navigate(`/profile/${authState.id}`)
+    });
+  };
+
    return (
     <div className="profilePageContainer">
       <h1> Profile page </h1>
@@ -42,6 +59,7 @@ function Profile() {
             <div className="title"> {value.title} </div>
             <div className="size"> {value.size} </div>
             <div className="desciption"> {value.desciption} </div>
+            <button onClick={() => {onDelete(value.id)}}> Delete Art </button>
           </div>
         )
       })}

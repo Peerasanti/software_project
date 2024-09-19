@@ -30,5 +30,11 @@ router.post("/", validateToken, async (req, res) => {
     res.json(art);
 });
 
+router.delete('/delete/:artId', validateToken, async (req, res) => {
+    const artId = req.params.artId;
+    await Arts.destroy({ where: {id: artId}});
+    res.json('Delete Success');
+});
+
 
 module.exports = router;

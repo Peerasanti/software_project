@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         artist: {
             type: DataTypes.STRING,
             allowNull: false,
-        },  
+        }, 
+        // category: {
+        //     type: DataTypes.STRING,
+        //     alllowNull: false,
+        // },
         price: {
             type: DataTypes.INTEGER,
             allowNull: false,

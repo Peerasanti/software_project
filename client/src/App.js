@@ -9,6 +9,7 @@ import Art from './pages/Art';
 import PostArt from './pages/PostArt';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
+import PaymentDetail from './pages/PaymentDetail';
 
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
@@ -66,6 +67,7 @@ function App() {
             <Route path='/postArt' element={<PostArt/>} />
             <Route path='/cart' element={<Cart/>} /> 
             <Route path='/payment' element={<Payment/>} />
+            <Route path='/detail' element={<PaymentDetail/>} />
           </Routes>
         </Router>
       </AuthContext.Provider>

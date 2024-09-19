@@ -44,7 +44,7 @@ function Art() {
         console.log(response.data.error);
       } else {
         console.log('Comment added!!!');
-        console.log(response.data.id);
+        console.log(response);
         const commentToAdd = {
           commentBody: newComment, 
           userName: response.data.userName, 
@@ -77,6 +77,7 @@ function Art() {
         console.log(response.data.error);
       } else {
         console.log('Add to cart success!!!');
+        console.log(response.data);
       }
     });
   };
@@ -102,10 +103,11 @@ function Art() {
         <div className="title">{artObject.title}</div>
         <div className="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>
+        <div className="artist">{artObject.artist}</div>
         <div className="desciption">{artObject.desciption}</div>
       </div>
       <div className='orderSection'>
-        <button onClick={addOrder}> Add to Cart </button>
+        {authState.username !== artObject.artist && <button onClick={addOrder}> Add to Cart </button>}
       </div>
       <div className='commentSection'>
         <div className='addCommentContainer'>

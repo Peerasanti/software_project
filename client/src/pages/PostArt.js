@@ -4,8 +4,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import PreviewImage from '../helper/PreviewImage';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function PostArt() {
+
+  const [ category, setCategory ] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/category').then((response) => {
+      setCategory(response.data);
+    });
+  }, []);
 
   let navigate = useNavigate();
   
@@ -62,6 +71,16 @@ function PostArt() {
         placeholder='(insert title...)'
         onChange={(event) => formik.setFieldValue('title', event.target.value)}
       />
+      <label> Category: </label>
+      {/* <select 
+        name='category'
+        placeholder='Select Art Style'
+        options={[
+          {}
+        ]}
+        value={category}
+        onChange={(event) => formik.setFieldValue('category', event.target.value)}>
+      </select> */}
       <label> Price: </label>
       <input
         type='number'

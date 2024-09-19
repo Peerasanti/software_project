@@ -40,37 +40,31 @@ function Register() {
           <Form>
             <label> User name: </label>
             <Field 
-              autocomplete='off'
-              id='inputCreateUser' 
+              type='text'
               name='username' 
               placeholder='(Enter username)' 
             />
             <label> Password: </label>
             <Field 
-              autocomplete='off'
               type='password'
-              id='inputCreateUser' 
               name='password' 
               placeholder='(Enter password)' 
             />
             <label> Email: </label>
             <Field 
-              autocomplete='off'
-              id='inputCreatUeser' 
+              type='text'
               name='email' 
               placeholder='(Enter email)' 
             />
             <label> Telephone number: </label>
             <Field 
-              autocomplete='off'
-              id='inputCreateUser' 
+              type='text'
               name='tel' 
               placeholder='(Enter telephone number..)' 
             />
             <label> Address: </label>
             <Field 
-              autocomplete='off'
-              id='inputCreateUser' 
+              type='text'
               name='address' 
               placeholder='(Enter address..)' 
             />

@@ -17,6 +17,8 @@ const categoryRouter = require('./routes/Categorys');
 app.use('/category', categoryRouter);
 const orderRouter = require('./routes/Order');
 app.use('/order', orderRouter);
+const billRouter = require('./routes/Bill');
+app.use('/bill', billRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {

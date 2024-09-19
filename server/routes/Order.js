@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
     res.json(listOfOrder);
 });
 
-router.get('/findByUser', validateToken, async (req, res) => {
-    const userId = req.user.id;
-    const listOfOrder = await Order.findAll({ where: {UserId: userId}});
+router.get('/findByUser/:userId', validateToken, async (req, res) => {
+    const userId = req.params.userId;
+    const listOfOrder = await Order.findAll({ where: {UserId: userId, BillId: null}});
     res.json(listOfOrder);
 });
 
@@ -30,7 +30,7 @@ router.post('/', validateToken, async (req, res) => {
 
 router.delete('/:orderId', validateToken, async (req, res) => {
     const orderId = req.params.orderId;
-    await Order.destroy({ where: {id: orderId, BillId: null}});
+    await Order.destroy({ where: {id: orderId}});
     res.json('Delete Success');
 });
 

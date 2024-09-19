@@ -1,4 +1,3 @@
-//-------------------------------- knight
 module.exports = (sequelize, DataTypes) => {
 
     const Bill = sequelize.define("Bill", {
@@ -21,4 +20,3 @@ module.exports = (sequelize, DataTypes) => {
 
     return Bill;
 };
-//-------------------------------- knight
