@@ -7,4 +7,10 @@ router.get('/', async (req, res) => {
     res.json(listOfCategory);
 });
 
+router.post('/', async (req, res) => {
+    const category = req.body;
+    await Categorys.create(category);
+    res.json(category);
+})
+
 module.exports = router;

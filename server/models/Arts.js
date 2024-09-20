@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
 
     const Arts = sequelize.define("Arts", {
         img: {
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         title: {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         }, 
         // category: {
         //     type: DataTypes.STRING,
-        //     alllowNull: false,
+        //     alllowNull: true,
         // },
         price: {
             type: DataTypes.INTEGER,

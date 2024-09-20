@@ -8,13 +8,13 @@ import { useEffect, useState } from 'react';
 
 function PostArt() {
 
-  const [ category, setCategory ] = useState([]);
+  // const [ categorys, setCategorys ] = useState([]);
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/category').then((response) => {
-      setCategory(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3001/category').then((response) => {
+  //     setCategorys(response.data);
+  //   });
+  // }, []);
 
   let navigate = useNavigate();
   
@@ -22,6 +22,7 @@ function PostArt() {
     initialValues: {
       img: "",
       title: "",
+      category: null,
       price: 0,
       size: "",
       desciption: "",
@@ -62,7 +63,7 @@ function PostArt() {
         type='file'
         accept='image/*'
         name='img'
-        onChange={(event) => formik.setFieldValue('img', event.target.files[0])}
+        onChange={(event) => formik.setFieldValue('img', URL.createObjectURL(event.target.files[0]))}
       />
       <label> Title: </label>
       <input
@@ -71,14 +72,10 @@ function PostArt() {
         placeholder='(insert title...)'
         onChange={(event) => formik.setFieldValue('title', event.target.value)}
       />
-      <label> Category: </label>
-      {/* <select 
+      {/* <label> Category: </label>
+      <select 
         name='category'
         placeholder='Select Art Style'
-        options={[
-          {}
-        ]}
-        value={category}
         onChange={(event) => formik.setFieldValue('category', event.target.value)}>
       </select> */}
       <label> Price: </label>
@@ -105,7 +102,7 @@ function PostArt() {
 
       <button type='submit'> Post </button>
      </form>
-     {formik.values.img && <PreviewImage file={formik.values.img}/>}
+     {formik.values.img && <PreviewImage path={formik.values.img}/>}
     </div>
   );
 };

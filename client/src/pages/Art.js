@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Art() {
   let { id } = useParams();
+  let navigate = useNavigate();
 
   const [ artObject, setArtObject] = useState({});
   const [ listOfComment, setListOfComment] = useState([]);
@@ -54,6 +56,7 @@ function Art() {
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
+      // navigate(`/art/${id}`);
     });
   };
 
@@ -100,6 +103,7 @@ function Art() {
     <div className='artPost'>
       {id}
       <div className='postSection'>
+        <img style={{ width: '300px', height: '300px' }} src={artObject.img} alt=""/>
         <div className="title">{artObject.title}</div>
         <div className="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>

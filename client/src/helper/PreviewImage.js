@@ -1,18 +1,8 @@
-import { useState } from "react";
-
-export default function PreviewImage({file}) {
-    const [ preview, setPreview ] = useState({})
-    if(file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setPreview(reader.result)
-        };
-    };
+export default function PreviewImage({path}) {
 
     return (
         <div>
-            <img style={{ width: '300px', height: '300px' }} src={preview} alt=""/>
+            <img style={{ width: '300px', height: '300px' }} src={path} alt=""/>
         </div>
     )
 }

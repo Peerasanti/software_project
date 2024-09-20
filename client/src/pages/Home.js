@@ -22,6 +22,7 @@ function Home() {
       {listOfArt.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
+            <img style={{ width: '300px', height: '300px' }} src={value.img} alt="" />
             <div className="title"> {value.title} </div>
             <div className="artist"> {value.artist} </div>
             <div className="price"> {value.price} </div>
