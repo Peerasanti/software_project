@@ -56,7 +56,6 @@ function Profile() {
       {listOfArts.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}}>
-            <img style={{ width: '300px', height: '300px' }} src={value.img} alt=""/>
             <div className="title"> {value.title} </div>
             <div className="size"> {value.size} </div>
             <div className="desciption"> {value.desciption} </div>

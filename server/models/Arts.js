@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
 
     const Arts = sequelize.define("Arts", {
         img: {
-            type: DataTypes.STRING,
+            type: DataTypes.BLOB,
             allowNull: false,
         },
         title: {

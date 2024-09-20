@@ -56,7 +56,8 @@ function Art() {
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
-      // navigate(`/art/${id}`);
+      navigate(`/art/${artObject.id}`);
+      console.log(artObject.id);
     });
   };
 
@@ -103,7 +104,6 @@ function Art() {
     <div className='artPost'>
       {id}
       <div className='postSection'>
-        <img style={{ width: '300px', height: '300px' }} src={artObject.img} alt=""/>
         <div className="title">{artObject.title}</div>
         <div className="price">{artObject.price}</div>
         <div className="size">{artObject.size}</div>

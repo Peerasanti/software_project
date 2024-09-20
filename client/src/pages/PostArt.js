@@ -22,7 +22,7 @@ function PostArt() {
     initialValues: {
       img: "",
       title: "",
-      category: null,
+      // category: null,
       price: 0,
       size: "",
       desciption: "",
@@ -63,7 +63,7 @@ function PostArt() {
         type='file'
         accept='image/*'
         name='img'
-        onChange={(event) => formik.setFieldValue('img', URL.createObjectURL(event.target.files[0]))}
+        onChange={(event) => formik.setFieldValue('img', event.target.files[0])}
       />
       <label> Title: </label>
       <input
@@ -102,7 +102,7 @@ function PostArt() {
 
       <button type='submit'> Post </button>
      </form>
-     {formik.values.img && <PreviewImage path={formik.values.img}/>}
+     {formik.values.img && <PreviewImage file={formik.values.img}/>}
     </div>
   );
 };

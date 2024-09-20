@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import style from '../css/Home.css'; 
+import DisplayImage from '../helper/DisplayImage';
 
 function Home() {
 
@@ -22,7 +23,7 @@ function Home() {
       {listOfArt.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
-            <img style={{ width: '300px', height: '300px' }} src={value.img} alt="" />
+            {/* {value.img && <DisplayImage file={value.img}/>} */}
             <div className="title"> {value.title} </div>
             <div className="artist"> {value.artist} </div>
             <div className="price"> {value.price} </div>

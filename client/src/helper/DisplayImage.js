@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-export default function PreviewImage({file}) {
+export default function DisplayImage({file}) {
 
     const [imgs, setImgs] = useState({});
-    console.log(file);
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
