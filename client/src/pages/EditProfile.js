@@ -23,7 +23,7 @@ function EditProfile() {
     }).then((response) => {
       setUserInfo(response.data);
     });
-  }, []);
+  }, [id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,12 +41,37 @@ function EditProfile() {
       }
     }).then((response) => {
       if (response.data.success) {
-        navigate(`/profile/${id}`);
+        console.log(response.data.success);
+        alert('Update profile success!!');
       } else {
         alert('Error updating profile.');
       }
     });
   };
+
+  const handlePasswordChange = (event) => {
+    event.preventDefault();
+    if (userInfo.newPassword !== userInfo.confirmPassword) {
+        alert("New password and confirmation do not match.");
+        return;
+    }
+    axios.put('http://localhost:3001/auth/password', 
+    {
+        newPassword: userInfo.newPassword,
+    }, 
+    {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response) => {
+        if (response.data.success) {
+            alert('Password updated successfully!');
+            setUserInfo({ ...userInfo, password: '', newPassword: '', confirmPassword: '' });
+        } else {
+            alert('Error updating password.');
+        }
+    });
+};
 
   return (
     <div className="editProfileContainer">
@@ -92,8 +117,35 @@ function EditProfile() {
             required
           />
         </div>
-        <button type="submit" onClick={handleSubmit}>Update Profile</button>
+        <button type="submit" > Chage Info </button>
       </form>
+
+
+      <h2>Change Password</h2>
+        <form onSubmit={handlePasswordChange}>
+            <div>
+                <label>New Password:</label>
+                <input
+                    type="password"
+                    name="newPassword"
+                    value={userInfo.newPassword}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div>
+                <label>Confirm New Password:</label>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    value={userInfo.confirmPassword}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <button type="submit">Change Password</button>
+        </form>
+        <button onClick={() => {navigate(`/profile/${id}`);}}> Update Profile </button>
     </div>
   );
 }

@@ -65,4 +65,17 @@ router.put('/user', validateToken, async (req, res) => {
     res.json({ success: true });
   });
 
+router.put('/password', validateToken, async (req, res) => {
+    const { newPassword } = req.body;
+    const userId = req.user.id;
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await Users.update({ password: hashedPassword }, { where: { id: userId } });
+        res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
 module.exports = router;
