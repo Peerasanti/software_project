@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 function Art() {
   let { id } = useParams();
-  let navigate = useNavigate();
 
   const [ artObject, setArtObject] = useState({});
   const [ listOfComment, setListOfComment] = useState([]);
@@ -25,15 +23,13 @@ function Art() {
     });
 
     axios.get(`http://localhost:3001/comment/${id}`).then((response) => {
-      if(!response.data) {
-        setListOfComment([]);
-      } else {
-        setListOfComment(response.data);
-      }
+      setListOfComment(response.data);
+      console.log(response.data);
     });
-  }, []);
+  }, [id]);
 
   const addComment = () => {
+    window.location.reload();
     axios.post('http://localhost:3001/comment', {commentBody: newComment, ArtId: id},
       {
         headers: {
@@ -57,8 +53,7 @@ function Art() {
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
-      navigate(`/art/${artObject.id}`);
-      console.log(artObject.id);
+      // console.log(artObject.id);
     });
   };
 
@@ -135,4 +130,4 @@ function Art() {
   )
 }
 
-export default Art
+export default Art;
