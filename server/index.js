@@ -4,6 +4,7 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
 const db = require('./models');
 
@@ -13,8 +14,6 @@ const artRouter = require('./routes/Arts');
 app.use('/art', artRouter);
 const commentRouter = require('./routes/Comments');
 app.use('/comment', commentRouter);
-const categoryRouter = require('./routes/Categorys');
-app.use('/category', categoryRouter);
 const orderRouter = require('./routes/Order');
 app.use('/order', orderRouter);
 const billRouter = require('./routes/Bill');

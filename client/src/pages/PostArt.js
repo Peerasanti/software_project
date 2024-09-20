@@ -8,38 +8,38 @@ import { useEffect, useState } from 'react';
 
 function PostArt() {
 
-  // const [ categorys, setCategorys ] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3001/category').then((response) => {
-  //     setCategorys(response.data);
-  //   });
-  // }, []);
-
   let navigate = useNavigate();
+  const [ img, setImg ] = useState("");
   
   const formik = useFormik({
     initialValues: {
       img: "",
       title: "",
-      // category: null,
       price: 0,
       size: "",
       desciption: "",
     },
     validationSchema: Yup.object().shape({
-      img: Yup.mixed().required(),
-      title: Yup.string().required(),
-      price: Yup.number().required(),
-      size: Yup.string().required(),
-      desciption: Yup.string().required(),
+      img: Yup.mixed().required('Image is required'),
+      title: Yup.string().required('Title is required'),
+      price: Yup.number().required('Price is required').positive('Price must be positive'),
+      size: Yup.string().required('Size is required'),
+      desciption: Yup.string().required('Description is required'),
     }),
+
+
     onSubmit: async () => {
-      console.log(formik.values);
-      axios.post("http://localhost:3001/art", formik.values, 
+      const formdata = new FormData();
+      formdata.append('img', formik.values.img);
+      formdata.append('title', formik.values.title);
+      formdata.append('price', formik.values.price);
+      formdata.append('size', formik.values.size);
+      formdata.append('desciption', formik.values.desciption);
+      await axios.post("http://localhost:3001/art", formdata, 
       {
         headers: {
-          accessToken: localStorage.getItem('accessToken')
+          'Content-Type': 'multipart/form-data',
+          accessToken: localStorage.getItem('accessToken'),
         },
       }
     ).then((response) => {
@@ -47,10 +47,9 @@ function PostArt() {
         alert('You Should Log In First');
         console.log(response.data.error);
       } else {
-        console.log(formik.values);
+        console.log('Uploaded Image:', formik.values.img);
         navigate("/success");
       }
-
       });
     },
   })
@@ -60,6 +59,7 @@ function PostArt() {
      <form onSubmit={formik.handleSubmit}>
       <label> Image: </label>
       <input
+        id='img'
         type='file'
         accept='image/*'
         name='img'
@@ -72,12 +72,6 @@ function PostArt() {
         placeholder='(insert title...)'
         onChange={(event) => formik.setFieldValue('title', event.target.value)}
       />
-      {/* <label> Category: </label>
-      <select 
-        name='category'
-        placeholder='Select Art Style'
-        onChange={(event) => formik.setFieldValue('category', event.target.value)}>
-      </select> */}
       <label> Price: </label>
       <input
         type='number'

@@ -52,6 +52,7 @@ function Art() {
           userName: response.data.userName, 
           ArtId: response.data.ArtId,
           UserId: response.data.UserId,
+          id: response.data.id,
         };
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
@@ -104,11 +105,12 @@ function Art() {
     <div className='artPost'>
       {id}
       <div className='postSection'>
-        <div className="title">{artObject.title}</div>
-        <div className="price">{artObject.price}</div>
-        <div className="size">{artObject.size}</div>
-        <div className="artist">{artObject.artist}</div>
-        <div className="desciption">{artObject.desciption}</div>
+        <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/`+artObject.img} alt="" />
+        <div className="title">ชื่อผลงาน: {artObject.title}</div>
+        <div className="price">ราคา: {artObject.price} บาท</div>
+        <div className="size">ขนาด: {artObject.size}</div>
+        <div className="artist">ผู้วาด: {artObject.artist}</div>
+        <div className="desciption">คำบรรยาย: {artObject.desciption}</div>
       </div>
       <div className='orderSection'>
         {authState.username !== artObject.artist && <button onClick={addOrder}> Add to Cart </button>}

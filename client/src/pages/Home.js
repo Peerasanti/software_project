@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import style from '../css/Home.css'; 
-import DisplayImage from '../helper/DisplayImage';
 
 function Home() {
 
@@ -23,11 +22,12 @@ function Home() {
       {listOfArt.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}} >
-            {/* {value.img && <DisplayImage file={value.img}/>} */}
-            <div className="title"> {value.title} </div>
-            <div className="artist"> {value.artist} </div>
-            <div className="price"> {value.price} </div>
-            <div className="size"> {value.size} </div>
+            <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/`+value.img} alt="" />
+            <div className="title">ชื่อผลงาน: {value.title} </div>
+            <div className="artist">ผู้วาด: {value.artist} </div>
+            <div className="price">ราคา: {value.price} บาท</div>
+            <div className="size">ขนาด: {value.size} </div>
+            <div className="desciption">คำบรรยาย: {value.desciption}</div>
           </div>
         )
       })}

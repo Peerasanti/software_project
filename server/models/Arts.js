@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
 
     const Arts = sequelize.define("Arts", {
         img: {
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         title: {
@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         }, 
-        // category: {
-        //     type: DataTypes.STRING,
-        //     alllowNull: true,
-        // },
         price: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -33,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
 
     Arts.associate = (models) => {
         Arts.hasMany(models.Comments, {
-            onDelete: "cascade",
-        });
-
-        Arts.belongsTo(models.Categorys, {
             onDelete: "cascade",
         });
 
