@@ -58,5 +58,11 @@ router.get("/basicInfo/:id", async (req, res) => {
     res.json(basicInfo);
 });
 
+router.put('/user', validateToken, async (req, res) => {
+    const { username, password, email, tel, address } = req.body;
+    const userId = req.user.id;
+    await Users.update({ username, password, email, tel, address }, { where: { id: userId } });
+    res.json({ success: true });
+  });
 
 module.exports = router;

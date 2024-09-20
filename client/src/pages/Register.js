@@ -52,13 +52,13 @@ function Register() {
             />
             <label> Email: </label>
             <Field 
-              type='text'
+              type='email'
               name='email' 
               placeholder='(Enter email)' 
             />
             <label> Telephone number: </label>
             <Field 
-              type='text'
+              type='tel'
               name='tel' 
               placeholder='(Enter telephone number..)' 
             />

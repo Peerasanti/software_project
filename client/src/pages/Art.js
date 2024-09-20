@@ -103,7 +103,6 @@ function Art() {
 
   return (
     <div className='artPost'>
-      {id}
       <div className='postSection'>
         <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/`+artObject.img} alt="" />
         <div className="title">ชื่อผลงาน: {artObject.title}</div>

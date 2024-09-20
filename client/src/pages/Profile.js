@@ -53,13 +53,14 @@ function Profile() {
         <h1> Telephone Number: {userInfo.tel} </h1>
         <h1> Address: {userInfo.address} </h1>
       </div>
+      <button onClick={() => {navigate(`/editProfile/${id}`)}}> Edit Info </button>
       {listOfArts.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}}>
             <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/`+value.img} alt="" />
-            <div className="title"> {value.title} </div>
-            <div className="size"> {value.size} </div>
-            <div className="desciption"> {value.desciption} </div>
+            <div className="title">ชื่อผลงาน: {value.title} </div>
+            <div className="size">ขนาด: {value.size} </div>
+            <div className="desciption">คำบรรยาย: {value.desciption} </div>
             <button onClick={() => {onDelete(value.id)}}> Delete Art </button>
           </div>
         )
