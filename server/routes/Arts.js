@@ -3,6 +3,8 @@ const router = express.Router();
 const { Arts } = require('../models');
 const { validateToken } = require('../middlewares/AuthMiddelware');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -54,6 +56,15 @@ router.post("/", validateToken, upload.single('img'), async (req, res) => {
 
 router.delete('/delete/:artId', validateToken, async (req, res) => {
     const artId = req.params.artId;
+    const art = await Arts.findByPk(artId);
+    const imagePath = path.join(__dirname, '../public/images', art.img);
+
+    fs.unlink(imagePath, (err) => {
+        if (err) {
+            console.error('Error deleting image:', err);
+            return res.status(500).json({ message: 'Could not delete image' });
+        }
+    });
     await Arts.destroy({ where: {id: artId}});
     res.json('Delete Success');
 });

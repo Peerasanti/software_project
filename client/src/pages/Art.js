@@ -53,7 +53,6 @@ function Art() {
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
-      // console.log(artObject.id);
     });
   };
 
@@ -119,7 +118,7 @@ function Art() {
           return (
             <div key={key} className='comment'> 
               "{comment.commentBody}"
-              <label> Username: {comment.userName} {comment.id} {comment.ArtId}</label>
+              <label> Username: {comment.userName} {comment.id}</label>
               {authState.username === comment.userName && <button onClick={() => {onDelete(comment.id)}}> Delete </button>}
             </div>
           )
