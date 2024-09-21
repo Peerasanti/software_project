@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+body{
+  background: url('D:/university/software/software_project/client/picture/bgimage.png') rgba(0,0,0,0.3) ;
+  background-size: cover;
+  background-repeat: inherit;
 }
-
-
