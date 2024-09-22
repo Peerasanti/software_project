@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
+        billIdReference: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
 
     });
 

@@ -56,11 +56,11 @@ function Cart() {
         }
       );
   
-      const billId = response.data.id;
+      const billIdReference = response.data.id;
       const putRequests = orderList.map(order => {
         return axios.put(`http://localhost:3001/order/update/${order.id}`, 
           { 
-            BillId: billId,
+            billIdReference: billIdReference,
             status: true
           },
           {
