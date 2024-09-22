@@ -15,61 +15,80 @@ import EditProfile from './pages/EditProfile';
 import { AuthContext } from './helper/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 function App() {
 
-  const [authState, setAuthState] = useState({username: "", id: 0, status: false});
+  const [authState, setAuthState] = useState({ username: "", id: 0, status: false });
 
   useEffect(() => {
-    axios.get('http://localhost:3001/auth/user', {headers: { accessToken: localStorage.getItem("accessToken") }}).then((response) => {
-      if(response.data.error) {
-        setAuthState({...authState, status: false});
+    axios.get('http://localhost:3001/auth/user', { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+      if (response.data.error) {
+        setAuthState({ ...authState, status: false });
       } else {
-        setAuthState({username: response.data.username, id: response.data.id, status: true});
+        setAuthState({ username: response.data.username, id: response.data.id, status: true });
       }
     });
   }, []);
 
   const logout = () => {
     localStorage.removeItem("accessToken");
-    setAuthState({username: "", id: 0, status: false});
+    setAuthState({ username: "", id: 0, status: false });
   };
 
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <div className="navbar"> 
-          {!authState.status ? (
-          <>
-            <Link to='/login'> Login </Link>
-            <Link to='/createuser'> Create User </Link>
-          </>
-          ) : (
-          <>
-            <button onClick={logout}> Logout </button>
-            <Link to={`/profile/${authState.id}`}> {authState.username} </Link>
-            <Link to='/cart'> Cart </Link> 
-            <Link to='/payment'> Payment </Link>
-          </>
-          )}
-          <Link to='/'> Home page </Link>
-          <Link to='/postArt'> Post Art </Link>
+          <head></head>
 
-          </div>    
+          <body class="vh-100 overflow-hidden">
+          
+            <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+              <div class="container-fluid ">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="dropdownLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown link
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </body>
           <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/createuser' element={<Register/>} />
-            <Route path='/login' element={<Login/>} />
-            <Route path='/success' element={<SuccessPage/>} />
-            <Route path='/profile/:id' element={<Profile/>} />
-            <Route path='/art/:id' element={<Art/>} />
-            <Route path='/postArt' element={<PostArt/>} />
-            <Route path='/cart' element={<Cart/>} /> 
-            <Route path='/payment' element={<Payment/>} />
-            <Route path='/detail' element={<PaymentDetail/>} />
-            <Route path='/editProfile/:id' element={<EditProfile/>} />
+            <Route path='/' element={<Home />} />
+            <Route path='/createuser' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/success' element={<SuccessPage />} />
+            <Route path='/profile/:id' element={<Profile />} />
+            <Route path='/art/:id' element={<Art />} />
+            <Route path='/postArt' element={<PostArt />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/payment' element={<Payment />} />
+            <Route path='/detail' element={<PaymentDetail />} />
+            <Route path='/editProfile/:id' element={<EditProfile />} />
           </Routes>
         </Router>
       </AuthContext.Provider>
