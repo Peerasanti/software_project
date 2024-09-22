@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../helper/AuthContext'
+import "../css/Login.css"
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -26,13 +27,28 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1> This is Login page </h1>
-      <input type="text" onChange={(event) => {setUsername(event.target.value);}}></input>
-      <input type="password" onChange={(event) => {setPassword(event.target.value);}}></input>
+    <div className="login-container">
+    <h1>เข้าสู่ระบบ</h1>
+    <div className="login-form">
+      <label htmlFor="username">ชื่อผู้ใช้:</label>
+      <input
+        type="text"
+        id="username"
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
+      />
 
-      <button onClick={login}> Login </button>
+      <label htmlFor="password">รหัสผ่าน:</label>
+      <input
+        type="password"
+        id="password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+      />
+
+      <button onClick={login} className="login-button">เข้าสู่ระบบ</button>
     </div>
+  </div>
   )
 }
 

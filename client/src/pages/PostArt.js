@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import PreviewImage from '../helper/PreviewImage';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import "../css/PostArt.css"
 
 function PostArt() {
 
@@ -13,7 +14,7 @@ function PostArt() {
   
   const formik = useFormik({
     initialValues: {
-      img: "",
+      img: null,
       title: "",
       price: 0,
       size: "",
@@ -55,49 +56,65 @@ function PostArt() {
   })
 
   return (
-    <div>
-     <form onSubmit={formik.handleSubmit}>
+    <div className="post-art-container">
+    <form onSubmit={formik.handleSubmit}>
       <label> Image: </label>
       <input
         id='img'
         type='file'
         accept='image/*'
         name='img'
-        onChange={(event) => formik.setFieldValue('img', event.target.files[0])}
+        onChange={(event) => {
+          formik.setFieldValue('img', event.currentTarget.files[0]);
+          setImg(event.currentTarget.files[0]);
+        }}
       />
+      {formik.touched.img && formik.errors.img ? <div className="error">{formik.errors.img}</div> : null}
+
       <label> Title: </label>
       <input
         type='text'
         name='title' 
         placeholder='(insert title...)'
-        onChange={(event) => formik.setFieldValue('title', event.target.value)}
+        value={formik.values.title}
+        onChange={formik.handleChange}
       />
+      {formik.touched.title && formik.errors.title ? <div className="error">{formik.errors.title}</div> : null}
+
       <label> Price: </label>
       <input
         type='number'
         name='price' 
         placeholder='(insert price...)'
-        onChange={(event) => formik.setFieldValue('price', event.target.value)}
+        value={formik.values.price}
+        onChange={formik.handleChange}
       />
+      {formik.touched.price && formik.errors.price ? <div className="error">{formik.errors.price}</div> : null}
+
       <label> Size: </label>
       <input
         type='text'
         name='size' 
         placeholder='(size...)'
-        onChange={(event) => formik.setFieldValue('size', event.target.value)}
+        value={formik.values.size}
+        onChange={formik.handleChange}
       />
-      <label> Desciption: </label>
+      {formik.touched.size && formik.errors.size ? <div className="error">{formik.errors.size}</div> : null}
+
+      <label> Description: </label>
       <input
         type='text'
         name='desciption' 
-        placeholder='(desciption...)'
-        onChange={(event) => formik.setFieldValue('desciption', event.target.value)}
+        placeholder='(description...)'
+        value={formik.values.desciption}
+        onChange={formik.handleChange}
       />
+      {formik.touched.desciption && formik.errors.desciption ? <div className="error">{formik.errors.desciption}</div> : null}
 
       <button type='submit'> Post </button>
-     </form>
-     {formik.values.img && <PreviewImage file={formik.values.img}/>}
-    </div>
+    </form>
+    {img && <PreviewImage file={img} />}
+  </div>
   );
 };
 

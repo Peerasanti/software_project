@@ -1,0 +1,71 @@
+/* General page styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for the home page */
+  .home-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Styling for each art item */
+  .art {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Hover effect for art items */
+  .art:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  /* Styling for the art image */
+  .art img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  /* Title, artist, price, size, and description styling */
+  .art .title, .art .artist, .art .price, .art .size, .art .description {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #333;
+  }
+  
+  /* Styling for the title */
+  .art .title {
+    font-weight: bold;
+    color: #4387cf;
+  }
+  
+  /* Styling for the price */
+  .art .price {
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  /* Text color for description */
+  .art .description {
+    color: #666;
+  }
+  
+  /* Responsive layout for smaller screens */
+  @media (max-width: 600px) {
+    .art {
+      max-width: 100%;
+      padding: 12px;
+    }
+  }

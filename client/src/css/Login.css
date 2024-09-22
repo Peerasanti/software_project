@@ -1,0 +1,56 @@
+/* Center the login form */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Login form styles */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Input field styling */
+  .login-form input {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  /* Label styling */
+  .login-form label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  /* Button styling */
+  .login-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design for small screens */
+  @media (max-width: 600px) {
+    .login-container {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+  

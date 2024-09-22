@@ -18,6 +18,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import ArtDetail from './pages/ArtDetail';
 
+// Import Bootstrap components
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 function App() {
 
@@ -40,42 +42,54 @@ function App() {
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
+    <AuthContext.Provider value={{ authState, setAuthState }}>
+      <Router>
+        {/* Bootstrap Navbar */}
+        <Navbar bg="light" expand="lg">
+          <Container>
+            <Navbar.Brand as={Link} to="/">Art Platform</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="/">Home</Nav.Link>
+                <Nav.Link as={Link} to="/postArt">Post Art</Nav.Link>
 
-        {!authState.status ? (
-          <>
-            <Link to='/login'> Login </Link>
-            <Link to='/createuser'> Create User </Link>
-          </>
-          ) : (
-          <>
-            <button onClick={logout}> Logout </button>
-            <Link to={`/profile/${authState.id}`}> {authState.username} </Link>
-            <Link to='/cart'> Cart </Link> 
-            <Link to={`/payment/${authState.id}`}> Payment </Link>
-          </>
-          )}
-          <Link to='/'> Home page </Link>
-          <Link to='/postArt'> Post Art </Link>
+                {/* Conditional Links based on auth status */}
+                {authState.status ? (
+                  <>
+                    <Nav.Link as={Link} to={`/profile/${authState.id}`}>{authState.username}</Nav.Link>
+                    <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+                    <Nav.Link as={Link} to={`/payment/${authState.id}`}>Payment</Nav.Link>
+                    <Button variant="outline-danger" onClick={logout}>Logout</Button>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                    <Nav.Link as={Link} to="/createuser">Create User</Nav.Link>
+                  </>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/createuser' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/success' element={<SuccessPage />} />
-            <Route path='/profile/:id' element={<Profile />} />
-            <Route path='/art/:id' element={<Art />} />
-            <Route path='/artDetail/:id' element={<ArtDetail />} />
-            <Route path='/postArt' element={<PostArt />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/payment/:id' element={<Payment />} />
-            <Route path='/detail/:id' element={<PaymentDetail />} />
-            <Route path='/editProfile/:id' element={<EditProfile />} />
-          </Routes>
-        </Router>
-      </AuthContext.Provider>
-    </div>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/createuser' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/success' element={<SuccessPage />} />
+          <Route path='/profile/:id' element={<Profile />} />
+          <Route path='/art/:id' element={<Art />} />
+          <Route path='/artDetail/:id' element={<ArtDetail />} />
+          <Route path='/postArt' element={<PostArt />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/payment/:id' element={<Payment />} />
+          <Route path='/detail/:id' element={<PaymentDetail />} />
+          <Route path='/editProfile/:id' element={<EditProfile />} />
+        </Routes>
+      </Router>
+    </AuthContext.Provider>
+  </div>
   );
 }
 

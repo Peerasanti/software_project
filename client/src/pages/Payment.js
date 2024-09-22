@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "../css/Payment.css"
 
 function Payment() {
   let { id } = useParams();

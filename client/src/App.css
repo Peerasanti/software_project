@@ -5,70 +5,103 @@
 } */
 
 
-.App {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-}
-
-header h1 {
+/* General styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
   margin: 0;
+  padding: 0;
 }
 
-nav {
-  display: flex;
-  gap: 15px;
+/* Navbar Customization */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-nav a:hover {
-  background-color: #555;
-}
-
-button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #ff1a1a;
-}
-
-.link-container {
-  margin-bottom: 20px;
-}
-
-.link-container a {
+.navbar-brand {
   font-weight: bold;
+  color: #ffffff !important;
 }
 
-.link-container a:hover {
-  text-decoration: underline;
+.navbar-nav .nav-link {
+  color: #555 !important;
 }
 
-footer {
-  margin-top: 20px;
+.navbar-nav .nav-link:hover {
+  color: #007bff !important;
+}
+
+/* Logout Button */
+.btn-outline-danger {
+  margin-left: 15px;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Main Content Styles */
+.container {
+  padding-top: 20px;
+}
+
+/* Form Styles */
+.form-control {
+  margin-bottom: 15px;
+}
+
+/* Button styles */
+button, .btn {
+  margin-top: 15px;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+button:hover, .btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+button:focus, .btn:focus {
+  box-shadow: none;
+}
+
+/* Error Messages */
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+/* Custom styles for pages */
+h1 {
+  color: #333;
+}
+
+.page-header {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2em;
+  color: #007bff;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #f1f1f1;
+  padding: 20px;
   text-align: center;
   color: #666;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .btn-outline-danger {
+    margin-top: 10px;
+  }
 }
