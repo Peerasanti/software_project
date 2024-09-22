@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false,
         },
+        status: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
 
     });
 

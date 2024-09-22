@@ -2,11 +2,15 @@ import React from 'react';
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
+import { useNavigate } from 'react-router-dom'
 
 function Cart() {
 
+  let navigate = useNavigate();
+
   const [orderList, setOrderList] = useState([]);
   const { authState } = useContext(AuthContext);
+  const [billId, setBillId] = useState(0);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/order/findByUser/${authState.id}`, 
@@ -18,7 +22,7 @@ function Cart() {
     ).then((response) => {
       setOrderList(response.data);
     });
-  }, []);
+  }, [authState.id]);
 
   const onDelete = (id) => {
     axios.delete(`http://localhost:3001/order/${id}`, 
@@ -33,6 +37,55 @@ function Cart() {
       }));
     });
   }
+
+  const pay = async () => {
+    let allPrice = 0;
+    for (let i = 0; i < orderList.length; i++) {
+      allPrice += orderList[i].price;
+    }
+  
+    try {
+      const response = await axios.post('http://localhost:3001/bill', 
+        { 
+          totalArt: orderList.length,
+          totalPrice: allPrice
+        },
+        {
+          headers: {
+            accessToken: localStorage.getItem('accessToken'),
+          },
+        }
+      );
+  
+      setBillId(response.data.id);
+      console.log(response.data.id);
+      const putRequests = orderList.map(order => {
+        return axios.put(`http://localhost:3001/update/${order.id}`, 
+          { 
+            BillId: billId,
+            status: true
+          },
+          {
+            headers: {
+              accessToken: localStorage.getItem('accessToken'),
+            },
+          }
+            
+        );
+      });
+
+      await Promise.all(putRequests);
+
+      
+      
+      
+      console.log('Payment completed successfully!');
+      navigate('/payment');
+  
+    } catch (error) {
+      console.error('Error during payment process:', error);
+    }
+  };
 
   return (
     <div className='orderSection'>
@@ -51,6 +104,7 @@ function Cart() {
         )
       })
       }
+      <button onClick={pay}> Pay </button>
     </div>
   )
 }

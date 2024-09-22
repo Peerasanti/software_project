@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
 router.get('/findByUser/:userId', validateToken, async (req, res) => {
     const userId = req.params.userId;
-    const listOfOrder = await Order.findAll({ where: {UserId: userId, BillId: null}});
+    const listOfOrder = await Order.findAll({ where: {UserId: userId, BillId: null, status: false}});
     res.json(listOfOrder);
 });
 
@@ -32,6 +32,13 @@ router.delete('/:orderId', validateToken, async (req, res) => {
     const orderId = req.params.orderId;
     await Order.destroy({ where: {id: orderId}});
     res.json('Delete Success');
+});
+
+router.put('/update/:orderId', validateToken, async (req, res) => {
+    const orderId = req.params.orderId;
+    const {billId, status} = req.body;
+    const newOrder = await Order.update({BillId:billId, status:status, UserId: req.user.id}, { where: {orderId: orderId}});
+    res.json(newOrder);
 });
 
 module.exports = router;

@@ -24,8 +24,8 @@ router.post('/', validateToken, async (req, res) => {
     const bill = req.body;
     const userId = req.user.id;
     bill.UserId = userId;
-    await Bill.create(bill);
-    res.json(bill);
+    const newBill = await Bill.create(bill);
+    res.json(newBill);
 });
 
 module.exports = router;

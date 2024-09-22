@@ -29,7 +29,6 @@ function Art() {
   }, [id]);
 
   const addComment = () => {
-    window.location.reload();
     axios.post('http://localhost:3001/comment', {commentBody: newComment, ArtId: id},
       {
         headers: {
@@ -50,6 +49,7 @@ function Art() {
           UserId: response.data.UserId,
           id: response.data.id,
         };
+        console.log(response.data.id)
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
       }
@@ -64,6 +64,7 @@ function Art() {
         artist: artObject.artist, 
         price: artObject.price, 
         artName: artObject.title,
+        status: false
       },
       {
         headers: {

@@ -20,8 +20,8 @@ router.post('/', validateToken, async (req, res) => {
     const userId = req.user.id;
     comment.userName = userName;
     comment.UserId = userId;
-    await Comments.create(comment);
-    res.json(comment);
+    const newComment = await Comments.create(comment);
+    res.json(newComment);
 });
 
 router.delete('/delete/:commentId', validateToken, async (req, res) => {
