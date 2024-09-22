@@ -16,7 +16,7 @@ router.get('/findByUser/:userId', validateToken, async (req, res) => {
 
 router.get('/findByBill/:billId', async (req, res) => {
     const billId = req.params.billId;
-    const listOfOrder = await Order.findAll({ where: {BillId: billId}});
+    const listOfOrder = await Order.findAll({ where: {billIdReference: billId}});
     res.json(listOfOrder);
 });
 

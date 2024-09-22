@@ -28,4 +28,6 @@ router.post('/', validateToken, async (req, res) => {
     res.json(newBill);
 });
 
+
+
 module.exports = router;
