@@ -57,7 +57,7 @@ function App() {
           )}
           <Link to='/'> Home page </Link>
           <Link to='/postArt'> Post Art </Link>
-          
+
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/createuser' element={<Register />} />

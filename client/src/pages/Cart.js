@@ -10,7 +10,6 @@ function Cart() {
 
   const [orderList, setOrderList] = useState([]);
   const { authState } = useContext(AuthContext);
-  const [billId, setBillId] = useState(0);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/order/findByUser/${authState.id}`, 
@@ -57,10 +56,9 @@ function Cart() {
         }
       );
   
-      setBillId(response.data.id);
-      console.log(response.data.id);
+      const billId = response.data.id;
       const putRequests = orderList.map(order => {
-        return axios.put(`http://localhost:3001/update/${order.id}`, 
+        return axios.put(`http://localhost:3001/order/update/${order.id}`, 
           { 
             BillId: billId,
             status: true
@@ -72,11 +70,12 @@ function Cart() {
           }
             
         );
+
       });
 
       await Promise.all(putRequests);
 
-      
+      console.log(response.data.id);
       
       
       console.log('Payment completed successfully!');

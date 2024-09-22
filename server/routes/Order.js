@@ -37,7 +37,7 @@ router.delete('/:orderId', validateToken, async (req, res) => {
 router.put('/update/:orderId', validateToken, async (req, res) => {
     const orderId = req.params.orderId;
     const {billId, status} = req.body;
-    const newOrder = await Order.update({BillId:billId, status:status, UserId: req.user.id}, { where: {orderId: orderId}});
+    const newOrder = await Order.update({BillId:billId, status:status}, { where: {id: orderId}});
     res.json(newOrder);
 });
 
