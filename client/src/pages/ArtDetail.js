@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
+import "../css/ArtDetail.css"
 
 
 function ArtDetail() {

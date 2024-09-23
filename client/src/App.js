@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom'
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -24,6 +24,8 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 function App() {
 
   const [authState, setAuthState] = useState({ username: "", id: 0, status: false });
+  // const navigate = useNavigate();
+  
 
   useEffect(() => {
     axios.get('http://localhost:3001/auth/user', { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
@@ -38,12 +40,15 @@ function App() {
   const logout = () => {
     localStorage.removeItem("accessToken");
     setAuthState({ username: "", id: 0, status: false });
+    // navigate("/")
   };
 
   return (
     <div className="App">
+    <Router>
     <AuthContext.Provider value={{ authState, setAuthState }}>
-      <Router>
+      {/* <Navigation /> */}
+      
         {/* Bootstrap Navbar */}
         <Navbar bg="light" expand="lg">
           <Container>
@@ -54,13 +59,15 @@ function App() {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="/postArt">Post Art</Nav.Link>
 
+      
                 {/* Conditional Links based on auth status */}
                 {authState.status ? (
                   <>
-                    <Nav.Link as={Link} to={`/profile/${authState.id}`}>{authState.username}</Nav.Link>
                     <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                     <Nav.Link as={Link} to={`/payment/${authState.id}`}>Payment</Nav.Link>
-                    <Button variant="outline-danger" onClick={logout}>Logout</Button>
+                    <Nav.Link as={Link} to={`/profile/${authState.id}`}>{authState.username}</Nav.Link>
+                    <Button variant="outline-danger" onClick={logout} >Logout</Button>
+                    
                   </>
                 ) : (
                   <>
@@ -87,9 +94,27 @@ function App() {
           <Route path='/detail/:id' element={<PaymentDetail />} />
           <Route path='/editProfile/:id' element={<EditProfile />} />
         </Routes>
-      </Router>
+      
     </AuthContext.Provider>
+    </Router>
   </div>
+  );
+}
+
+function Navigation() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+      localStorage.removeItem("accessToken");
+      // การจัดการสถานะ logout ที่นี่
+      navigate('/'); // เปลี่ยนไปที่หน้า Home
+  };
+
+  return (
+      <nav>
+          <button onClick={logout}>Logout</button>
+          {/* ลิงก์อื่น ๆ */}
+      </nav>
   );
 }
 

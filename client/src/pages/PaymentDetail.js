@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
 import { useNavigate , Link , useParams } from 'react-router-dom'
+import "../css/PaymentDetail.css"
 
 
 function PaymentDetail() {

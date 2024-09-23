@@ -18,11 +18,11 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div>This is Home page</div>
+      {/* <div>This is Home page</div> */}
       {listOfArt.map((value, key) => {
         return (
           <div key={key} className="art" onClick={() => { navigate(`/art/${value.id}`) }}>
-            <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/` + value.img} alt="" />
+            <img  style={{ width: '200px', height: '200px' }} src={`http://localhost:3001/images/` + value.img} alt="" />
             <div className="title">ชื่อผลงาน: {value.title} </div>
             <div className="artist">ผู้วาด: {value.artist} </div>
             <div className="price">ราคา: {value.price} บาท</div>

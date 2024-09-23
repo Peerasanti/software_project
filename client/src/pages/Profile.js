@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from "../helper/AuthContext";
+import "../css/Profile.css"
 
 function Profile() {
   let { id } = useParams();

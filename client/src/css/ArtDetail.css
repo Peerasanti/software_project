@@ -1,0 +1,46 @@
+.artPost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .postSection {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .postSection img {
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .title, .price, .size, .artist, .desciption {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .price {
+    color: #2E7D32;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .desciption {
+    font-style: italic;
+    color: #555;
+  }
+  

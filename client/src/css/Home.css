@@ -10,6 +10,13 @@ body {
   .home-container {
     padding: 20px;
     text-align: center;
+    /* background-image: url(D:\university\software\software_project\client\picture\bgimage.png);
+    background-attachment: fixed;
+    background-position: center; */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
+    gap: 20px; /* ระยะห่างระหว่างภาพ */
+    padding: 20px;
   }
   
   /* Styling for each art item */

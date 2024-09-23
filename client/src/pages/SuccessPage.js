@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import "../css/SuccessPage.css"
 
 function SuccessPage() {
 
@@ -11,10 +12,10 @@ function SuccessPage() {
     }
 
     return (
-        <div>
-            <h1> SUCCESS </h1>
-            <button onClick={okey}> OKAY </button>
-        </div>
+        <div className="successPageContainer">
+        <h1> SUCCESS </h1>
+        <button onClick={okey}> OKAY </button>
+    </div>
     )
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import "../css/Cart.css"
 
 function Cart() {
   const navigate = useNavigate();

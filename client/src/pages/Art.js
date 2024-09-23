@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helper/AuthContext';
+import "../css/Art.css"
 
 function Art() {
   let { id } = useParams();
