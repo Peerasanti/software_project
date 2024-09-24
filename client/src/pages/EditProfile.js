@@ -17,12 +17,9 @@ function EditProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/auth/byId/${id}`, {
-      headers: {
-        accessToken: localStorage.getItem('accessToken')
-      }
-    }).then((response) => {
+    axios.get(`http://localhost:3001/auth/byId/${id}`).then((response) => {
       setUserInfo(response.data);
+      localStorage.setItem('username', response.data.username);
     });
   }, [id]);
 
@@ -36,14 +33,12 @@ function EditProfile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put('http://localhost:3001/auth/user', userInfo, {
-      headers: {
-        accessToken: localStorage.getItem('accessToken')
-      }
-    }).then((response) => {
-      if (response.data.success) {
-        console.log(response.data.success);
+    axios.put(`http://localhost:3001/auth/user/${localStorage.getItem('userId')}`, userInfo).then((response) => {
+      if (response.data) {
+        console.log(response.data);
         alert('Update profile success!!');
+        localStorage.setItem('username', response.data.username);
+        // console.log(response.data.username);
       } else {
         alert('Error updating profile.');
       }
@@ -56,23 +51,19 @@ function EditProfile() {
         alert("New password and confirmation do not match.");
         return;
     }
-    axios.put('http://localhost:3001/auth/password', 
+    axios.put(`http://localhost:3001/auth/password/${localStorage.getItem("userId")}`, 
     {
-        newPassword: userInfo.newPassword,
-    }, 
-    {
-        headers: {
-            accessToken: localStorage.getItem('accessToken')
-        }
-    }).then((response) => {
-        if (response.data.success) {
-            alert('Password updated successfully!');
-            setUserInfo({ ...userInfo, password: '', newPassword: '', confirmPassword: '' });
-        } else {
-            alert('Error updating password.');
-        }
-    });
-};
+        password: userInfo.newPassword,
+    }
+    ).then((response) => {
+          if (response.data) {
+              alert('Password updated successfully!');
+              setUserInfo({ ...userInfo, password: '', newPassword: '', confirmPassword: '' });
+          } else {
+              alert('Error updating password.');
+          }
+      });
+  };
 
   return (
     <div className="editProfileContainer">
@@ -146,7 +137,7 @@ function EditProfile() {
             </div>
             <button type="submit">Change Password</button>
         </form>
-        <button onClick={() => {navigate(`/profile/${id}`);}}> Update Profile </button>
+        <button onClick={() => {navigate(`/profile/${id}`); window.location.reload();}}> Update Profile </button>
     </div>
   );
 }

@@ -15,14 +15,20 @@ function Login() {
 
   const login = () => {
     const data = {username: username, password: password};
-    axios.post("http://localhost:3001/auth/login", data).then((response) => {
+    axios.post("http://localhost:3001/auth/login?username=" + username + "&password=" + password + "", data).then((response) => {
       if(response.data.error) {
         alert(response.data.error);
       } else {
-        localStorage.setItem('accessToken', response.data.token);
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('userId', response.data.id);
+        localStorage.setItem('status', true);
+
         setAuthState({username: response.data.username, id: response.data.id, status: true});
         navigate("/");
       }
+    }).catch(error => {
+      alert("Invalid credentials");
+      console.error("Login error", error);
     });
   }
 
@@ -47,6 +53,8 @@ function Login() {
       />
 
       <button onClick={login} className="login-button">เข้าสู่ระบบ</button>
+      <br />
+      <button onClick={() => navigate("/createuser")}>สร้างบัญชีผู้ใช้</button>
     </div>
   </div>
   )

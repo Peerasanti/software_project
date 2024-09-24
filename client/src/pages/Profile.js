@@ -12,8 +12,11 @@ function Profile() {
   const [ listOfArts, setListOfArts ] = useState([]);
   const { authState } = useContext(AuthContext);
 
+  console.log("authState:", authState);
+  console.log("id:", id);
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
+    axios.get(`http://localhost:3001/auth/byId/${id}`).then((response) => {
       if(!response.data) {
         setUserInfo({});
       } else {
@@ -21,22 +24,17 @@ function Profile() {
       }
     });
 
-    axios.get(`http://localhost:3001/art/byUserId/${id}`).then((response) => {
-      if(!response.data) {
+    axios.get(`http://localhost:3001/art/findByUser/${id}`).then((response) => {
+      if(typeof response.data === 'string') {
         setListOfArts([]);
       } else {
         setListOfArts(response.data);
       }
      });
-  }, []);
+  }, [id]);
 
   const onDelete = (id) => {
     axios.delete(`http://localhost:3001/art/delete/${id}`,
-      {
-        headers: {
-          accessToken: localStorage.getItem('accessToken'),
-        },
-      }
     ).then(() => {
       setListOfArts(listOfArts.filter((val) => {
         return val.id !== id;
@@ -57,7 +55,7 @@ function Profile() {
       <button onClick={() => {navigate(`/editProfile/${id}`)}}> Edit Info </button>
       {listOfArts.map((value, key) => {
         return (
-          <div key={key} className="art" onClick={() => {navigate(`/art/${value.id}`)}}>
+          <div key={key} className="art">
             <img  style={{ width: '300px', height: '300px' }} src={`http://localhost:3001/images/`+value.img} alt="" />
             <div className="title">ชื่อผลงาน: {value.title} </div>
             <div className="size">ขนาด: {value.size} </div>

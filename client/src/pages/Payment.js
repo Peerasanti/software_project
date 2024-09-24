@@ -1,27 +1,27 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import "../css/Payment.css"
 
 function Payment() {
-  let { id } = useParams();
+  // let { id } = useParams();
   const [listOfBill, setListOfBill] = useState([]);
-  
-  let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/bill/findByUser/${id}`).then((response) => {
-      if(!response.data) {
+    axios.get(`http://localhost:3001/bill/findByUser/${localStorage.getItem('userId')}`).then((response) => {
+      if(response.data === "No bill found for this user.") {
         setListOfBill([]);
       } else {
         setListOfBill(response.data);
+        console.log(response.data);
       }
     });
-  }, []);
+  }, [localStorage.getItem('userId')]);
 
 
+  console.log(listOfBill);
   return (
     <div>
       <h1> This is Payment page </h1>

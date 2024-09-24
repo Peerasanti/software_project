@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../helper/AuthContext';
 import "../css/Art.css"
 
 function Art() {
@@ -11,8 +10,9 @@ function Art() {
   const [ artObject, setArtObject] = useState({});
   const [ listOfComment, setListOfComment] = useState([]);
   const [ newComment, setNewComment] = useState("");
-  const { authState } = useContext(AuthContext);
-  const date = new Date();
+
+  const [ artistName, setArtistName] = useState("");
+
 
   useEffect(() => {
     axios.get(`http://localhost:3001/art/byId/${id}`).then((response) => {
@@ -20,59 +20,55 @@ function Art() {
         setArtObject({});
       } else {
         setArtObject(response.data);
+        console.log(response.data.user.username);
+        setArtistName(response.data.user.username);
       }
     });
 
-    axios.get(`http://localhost:3001/comment/${id}`).then((response) => {
-      setListOfComment(response.data);
-      console.log(response.data);
+    axios.get(`http://localhost:3001/comment/findByArt/${id}`).then((response) => {
+      if(response.data === "No comment found for this art.") {
+        setListOfComment([]);
+      } else {
+        setListOfComment(response.data);
+        // console.log(response.data);
+      }
     });
   }, [id]);
 
   const addComment = () => {
-    axios.post('http://localhost:3001/comment', {commentBody: newComment, ArtId: id},
+    if(localStorage.getItem('status') === false) {
+      alert('You Should Log In First');
+      return false;
+    }
+    axios.post(`http://localhost:3001/comment/${id}/${localStorage.getItem('userId')}`, 
       {
-        headers: {
-          accessToken: localStorage.getItem('accessToken')
-        },
+        commentBody: newComment
       }
     ).then((response) => {
       if(response.data.error) {
         alert('You Should Log In First');
         console.log(response.data.error);
       } else {
+        console.log(response.data);
         console.log('Comment added!!!');
-        console.log(response);
         const commentToAdd = {
           commentBody: newComment, 
-          userName: response.data.userName, 
-          ArtId: response.data.ArtId,
-          UserId: response.data.UserId,
-          id: response.data.id,
+          username: response.data.user.username,
         };
         console.log(response.data.id)
         setListOfComment([...listOfComment, commentToAdd]);
         setNewComment("");
+        // window.location.reload();
       }
     });
   };
 
   const addOrder = () => {
-    axios.post('http://localhost:3001/order',
-      {
-        orderDate: date, 
-        ArtId: id, 
-        artist: artObject.artist, 
-        price: artObject.price, 
-        artName: artObject.title,
-        status: false
-      },
-      {
-        headers: {
-          accessToken: localStorage.getItem('accessToken')
-        },
-      }
-    ).then((response) => {
+    if(localStorage.getItem('status') === false) {
+      alert('You Should Log In First');
+      return false;
+    }
+    axios.post(`http://localhost:3001/order/${id}/${localStorage.getItem('userId')}`).then((response) => {
       if(response.data.error) {
         alert('You Should Log In First');
         console.log(response.data.error);
@@ -83,19 +79,13 @@ function Art() {
     });
   };
 
-  const onDelete = (id) => {
-    axios.delete(`http://localhost:3001/comment/delete/${id}`,
-      {
-        headers: {
-          accessToken: localStorage.getItem('accessToken')
-        },
-      }
-    ).then(() => {
-      setListOfComment(listOfComment.filter((val) => {
-        return val.id !== id;
-      }));
-    });
-  }
+  // const onDelete = (id) => {
+  //   axios.delete(`http://localhost:3001/comment/delete/${id}`).then(() => {
+  //     setListOfComment(listOfComment.filter((val) => {
+  //       return val.id !== id;
+  //     }));
+  //   });
+  // }
 
   return (
     <div className='artPost'>
@@ -104,11 +94,11 @@ function Art() {
         <div className="title">ชื่อผลงาน: {artObject.title}</div>
         <div className="price">ราคา: {artObject.price} บาท</div>
         <div className="size">ขนาด: {artObject.size}</div>
-        <div className="artist">ผู้วาด: {artObject.artist}</div>
-        <div className="desciption">คำบรรยาย: {artObject.desciption}</div>
+        <div className="artist">ผู้วาด: {artistName}</div>
+        <div className="desciption">คำบรรยาย: {artObject.description}</div>
       </div>
       <div className='orderSection'>
-        {authState.username !== artObject.artist && <button onClick={addOrder}> Add to Cart </button>}
+        {localStorage.getItem('username') !== artistName && <button onClick={addOrder}> Add to Cart </button>}
       </div>
       <div className='commentSection'>
         <div className='addCommentContainer'>
@@ -120,8 +110,8 @@ function Art() {
           return (
             <div key={key} className='comment'> 
               "{comment.commentBody}"
-              <label> Username: {comment.userName} {comment.id}</label>
-              {authState.username === comment.userName && <button onClick={() => {onDelete(comment.id)}}> Delete </button>}
+              <label> Username: {localStorage.getItem('username')}</label>
+              {/* {localStorage.getItem('username') === comment.username && <button onClick={() => {onDelete(comment.id)}}> Delete </button>} */}
             </div>
           )
         })}
@@ -132,3 +122,4 @@ function Art() {
 }
 
 export default Art;
+

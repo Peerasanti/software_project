@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import PreviewImage from '../helper/PreviewImage';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import "../css/PostArt.css"
 
 function PostArt() {
@@ -18,31 +18,26 @@ function PostArt() {
       title: "",
       price: 0,
       size: "",
-      desciption: "",
+      description: "",
     },
     validationSchema: Yup.object().shape({
       img: Yup.mixed().required('Image is required'),
       title: Yup.string().required('Title is required'),
       price: Yup.number().required('Price is required').positive('Price must be positive'),
       size: Yup.string().required('Size is required'),
-      desciption: Yup.string().required('Description is required'),
+      description: Yup.string().required('Description is required'),
     }),
 
 
     onSubmit: async () => {
+      console.log(typeof formik.values.img);
       const formdata = new FormData();
       formdata.append('img', formik.values.img);
       formdata.append('title', formik.values.title);
       formdata.append('price', formik.values.price);
       formdata.append('size', formik.values.size);
-      formdata.append('desciption', formik.values.desciption);
-      await axios.post("http://localhost:3001/art", formdata, 
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          accessToken: localStorage.getItem('accessToken'),
-        },
-      }
+      formdata.append('description', formik.values.description);
+      await axios.post(`http://localhost:3001/art/${localStorage.getItem('userId')}`, formik.values
     ).then((response) => {
       if(response.data.error) {
         alert('You Should Log In First');
@@ -65,7 +60,7 @@ function PostArt() {
         accept='image/*'
         name='img'
         onChange={(event) => {
-          formik.setFieldValue('img', event.currentTarget.files[0]);
+          formik.setFieldValue('img', String(URL.createObjectURL(event.currentTarget.files[0])));
           setImg(event.currentTarget.files[0]);
         }}
       />
@@ -104,12 +99,12 @@ function PostArt() {
       <label> Description: </label>
       <input
         type='text'
-        name='desciption' 
+        name='description' 
         placeholder='(description...)'
-        value={formik.values.desciption}
+        value={formik.values.description}
         onChange={formik.handleChange}
       />
-      {formik.touched.desciption && formik.errors.desciption ? <div className="error">{formik.errors.desciption}</div> : null}
+      {formik.touched.description && formik.errors.description ? <div className="error">{formik.errors.description}</div> : null}
 
       <button type='submit'> Post </button>
     </form>
