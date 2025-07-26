@@ -20,8 +20,10 @@
 Backend: ได้มีการเลือกเครื่องมือที่เหมาะสมสำหรับการออกแบบและพัฒนาระบบในรูปแบบ RESTful API และอ้างอิงตามหลักการของ SOLID 
 จึงได้เลือกมาเป็น Express js ที่สามารถสร้าง RESTful API เพื่อส่งไปยังหน้าเว็บที่พัฒนาผ่าน React js ได้ก่อนภายหลังจะได้ปรับเปลี่ยนมาใช้ Spring boot ตามความต้องการของรายวิชาในภายหลัง
 การออกแบบระบบ: 
-* ER diagram: <img width="476" height="341" alt="image" src="https://github.com/user-attachments/assets/2feb9e79-9a78-47d1-bad1-d0ece467cfe0" />
-* Class diagram: <img width="476" height="341" alt="image" src="https://github.com/user-attachments/assets/1ad4627e-c0d1-45f5-8d18-96f908ff1f60" />
+* ER diagram:       <img width="476" height="341" alt="image" src="https://github.com/user-attachments/assets/2feb9e79-9a78-47d1-bad1-d0ece467cfe0" />
+
+* Class diagram:    <img width="476" height="341" alt="image" src="https://github.com/user-attachments/assets/1ad4627e-c0d1-45f5-8d18-96f908ff1f60" />
+
 * Use Case diagram: <img width="476" height="341" alt="image" src="https://github.com/user-attachments/assets/bbbed111-3535-47d7-9de7-79e0503f8bd9" />
 
 เมื่อทำการออกแบบ diagram ครบหมดทุกอย่างแล้วจึงทำการสร้างฐานข้อมูลขึ้นโดยเลือกใช้เป็น MySQL เนื่องจากเป็นฐานข้อมูลที่ง่ายต่อการเก็บข้อมูลแบบ Relational Database และทำการออกแบบ RESTful API ให้สามารถทำงานร่วมได้ด้วยเช่นกัน
